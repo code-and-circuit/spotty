@@ -15,7 +15,9 @@ import time
 
 from threading import Thread
 
-os.system("pacmd set-default-sink 0") # make speakers the output device
+#os.system("pacmd set-default-sink 0") # make speakers the output device
+
+from aikeys import *
 
 class VideoGet:
     """
@@ -66,7 +68,6 @@ from bosdyn.client.robot_state import RobotStateClient
 
 from elevenlabs import set_api_key
 from elevenlabs import generate, play
-eleven_key = "df9fff70db36babd0e5040610c8c822f"
 set_api_key(eleven_key)
 
 
@@ -193,7 +194,7 @@ def observe():
     file1.close()
 
     api_url = "https://cctest1.cognitiveservices.azure.com/computervision/imageanalysis:analyze?api-version=2023-02-01-preview&features=denseCaptions&language=en&gender-neutral-caption=False"
-    headers = {"Ocp-apim-subscription-key":"243a6fc6116940849c58b4eb168ebdfa" , "Content-Type":"application/octet-stream"}
+    headers = {"Ocp-apim-subscription-key":azure_cognitive_key , "Content-Type":"application/octet-stream"}
     response = requests.post(api_url, headers=headers, data=byte_im)
 
     captions = json.loads(response.text)
@@ -220,7 +221,7 @@ def observe():
 
     print(prompt)
 
-    openai.api_key = "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";
+    openai.api_key = openai_key;
 
     chatmessages.append({"role": "user", "content": prompt})
     completion = []
